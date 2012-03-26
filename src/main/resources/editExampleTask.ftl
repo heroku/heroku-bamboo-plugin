@@ -1,1 +1,0 @@
-[@ww.textfield labelKey="com.heroku.say" name="say" required='true'/]

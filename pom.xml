@@ -31,7 +31,11 @@
             <version>${bamboo.version}</version>
             <scope>provided</scope>
         </dependency>
-        
+        <dependency>
+            <groupId>direct-to-heroku-client</groupId>
+            <artifactId>direct-to-heroku-client_2.9.1</artifactId>
+            <version>0.1-SNAPSHOT</version>
+        </dependency>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
