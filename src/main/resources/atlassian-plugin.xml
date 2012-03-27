@@ -9,12 +9,12 @@
     <resource type="i18n" name="com.heroku language" location="english"/>
 
     <!-- defines an example task -->
-    <taskType name="HerokuArtifactDeployment" class="com.heroku.DeployArtifactTask" key="test">
+    <taskType key="herokuArtifactDeployment" name="Artifact Deployment" class="com.heroku.ArtifactDeployment">
         <description>Deploy a build artifact to Heroku</description>
         <!-- Categories available in 3.1: "builder", "test" and "deployment"
         <category name=""/>
         -->
-        <configuration class="com.heroku.DeployArtifactTaskConfigurator"/>
+        <configuration class="com.heroku.ArtifactDeploymentConfigurator"/>
         <resource type="freemarker" name="edit" location="editArtifactDeployment.ftl"/>
     </taskType>
 </atlassian-plugin>
