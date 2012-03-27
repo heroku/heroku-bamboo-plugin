@@ -19,7 +19,9 @@ public class ArtifactDeploymentConfigurator extends AbstractTaskConfigurator {
     @Override
     public Map<String, String> generateTaskConfigMap(@NotNull final ActionParametersMap params, @Nullable final TaskDefinition previousTaskDefinition) {
         final Map<String, String> config = super.generateTaskConfigMap(params, previousTaskDefinition);
-        config.put("say", params.getString("say"));
+        config.put("apiKey", params.getString("apiKey"));
+        config.put("appName", params.getString("appName"));
+        config.put("artifactPath", params.getString("artifactPath"));
         return config;
     }
 
