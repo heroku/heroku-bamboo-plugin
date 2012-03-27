@@ -10,12 +10,12 @@
     <version>0.1-SNAPSHOT</version>
 
     <organization>
-        <name>Example Company</name>
-        <url>http://www.example.com/</url>
+        <name>Heroku</name>
+        <url>http://www.heroku.com/</url>
     </organization>
 
-    <name>bamboo</name>
-    <description>This is the com.heroku:bamboo plugin for Atlassian Bamboo.</description>
+    <name>Heroku Bamboo Plug-In</name>
+    <description>A Bamboo plug-in for Heroku</description>
     <packaging>atlassian-plugin</packaging>
 
     <properties>
