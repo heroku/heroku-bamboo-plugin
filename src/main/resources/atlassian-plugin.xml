@@ -9,7 +9,7 @@
     <resource type="i18n" name="com.heroku language" location="english"/>
 
     <!-- defines an example task -->
-    <taskType key="herokuArtifactDeployment" name="Artifact Deployment" class="com.heroku.ArtifactDeployment">
+    <taskType key="com.heroku.ArtifactDeployment" name="Heroku: Deploy Artifact" class="com.heroku.ArtifactDeployment">
         <description>Deploy a build artifact to Heroku</description>
         <category name="deployment"/>
         <configuration class="com.heroku.ArtifactDeploymentConfigurator"/>
