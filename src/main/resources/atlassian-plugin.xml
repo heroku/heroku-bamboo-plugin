@@ -14,5 +14,6 @@
         <category name="deployment"/>
         <configuration class="com.heroku.ArtifactDeploymentConfigurator"/>
         <resource type="freemarker" name="edit" location="editArtifactDeployment.ftl"/>
+        <resource type="download" name="icon" location="heroku_logo.png"/>
     </taskType>
 </atlassian-plugin>
