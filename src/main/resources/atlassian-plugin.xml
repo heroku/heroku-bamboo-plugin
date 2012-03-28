@@ -11,9 +11,7 @@
     <!-- defines an example task -->
     <taskType key="herokuArtifactDeployment" name="Artifact Deployment" class="com.heroku.ArtifactDeployment">
         <description>Deploy a build artifact to Heroku</description>
-        <!-- Categories available in 3.1: "builder", "test" and "deployment"
-        <category name=""/>
-        -->
+        <category name="deployment"/>
         <configuration class="com.heroku.ArtifactDeploymentConfigurator"/>
         <resource type="freemarker" name="edit" location="editArtifactDeployment.ftl"/>
     </taskType>
