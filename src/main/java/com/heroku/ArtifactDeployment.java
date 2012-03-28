@@ -2,7 +2,7 @@ package com.heroku;
 
 import com.atlassian.bamboo.build.logger.BuildLogger;
 import com.atlassian.bamboo.task.*;
-import com.herokuapp.directto.client.Client;
+import com.herokuapp.directto.client.WarDeployer;
 import org.jetbrains.annotations.NotNull;
 import scala.collection.immutable.Map;
 
@@ -18,8 +18,8 @@ public class ArtifactDeployment implements TaskType {
         final String appName = taskContext.getConfigurationMap().get("appName");
         final String artifactPath = taskContext.getConfigurationMap().get("artifactPath");
 
-        final Client directToHerokuClient = new Client(apiKey);
-        final Map<String, String> deployResult = directToHerokuClient.deployWar(appName, new File(artifactPath));
+        final WarDeployer warDeploy = new WarDeployer(apiKey);
+        final Map<String, String> deployResult = warDeploy.deploy(appName, new File(artifactPath));
         buildLogger.addBuildLogEntry(deployResult.toString());
 
         return TaskResultBuilder.create(taskContext).success().build();
