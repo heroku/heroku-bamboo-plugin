@@ -6,7 +6,7 @@
 
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.heroku</groupId>
-    <artifactId>bamboo</artifactId>
+    <artifactId>heroku-bamboo-plugin</artifactId>
     <version>0.1-SNAPSHOT</version>
 
     <organization>
@@ -32,9 +32,9 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>direct-to-heroku-client</groupId>
-            <artifactId>direct-to-heroku-client_2.9.1</artifactId>
-            <version>0.1-SNAPSHOT</version>
+            <groupId>com.herokuapp.directto</groupId>
+            <artifactId>direct-to-heroku-client</artifactId>
+            <version>0.2-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
@@ -66,4 +66,12 @@
             </plugin>
         </plugins>
     </build>
+
+    <repositories>
+        <repository>
+            <id>repository.jboss.org-public</id>
+            <name>JBoss.org Maven repository</name>
+            <url>https://repository.jboss.org/nexus/content/groups/public</url>
+        </repository>
+    </repositories>
 </project>

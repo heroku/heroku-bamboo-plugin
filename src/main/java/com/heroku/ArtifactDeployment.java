@@ -2,7 +2,7 @@ package com.heroku;
 
 import com.atlassian.bamboo.build.logger.BuildLogger;
 import com.atlassian.bamboo.task.*;
-import com.herokuapp.directto.client.DirectToHerokuClientForJava;
+import com.herokuapp.directto.client.DirectToHerokuClient;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
@@ -34,11 +34,18 @@ public class ArtifactDeployment implements TaskType {
         final String appName = taskContext.getConfigurationMap().get("appName");
         final String artifactPath = taskContext.getConfigurationMap().get("artifactPath");
 
-        final DirectToHerokuClientForJava client = new DirectToHerokuClientForJava(apiKey);
+        final DirectToHerokuClient directClient = new DirectToHerokuClient(apiKey);
 
         final Map<String, File> files = new HashMap<String, File>(1);
-        files.put("war", new File(artifactPath));
-        final Map<String, String> deployResults = client.deploy("war", appName, files);
+        files.put("war", new File(taskContext.getWorkingDirectory().getAbsolutePath() + "/" + artifactPath));
+
+        final Map<String, String> deployResults;
+        try {
+            deployResults = directClient.deploy("war", appName, files);
+        } catch (InterruptedException e) {
+            throw new TaskException("Deployment was interrupted", e);
+        }
+
         for (Map.Entry<String, String> result : deployResults.entrySet()) {
             buildLogger.addBuildLogEntry(result.getKey() + ":" + result.getValue());
         }
