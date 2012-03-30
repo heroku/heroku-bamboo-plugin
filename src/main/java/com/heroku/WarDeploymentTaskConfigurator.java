@@ -13,7 +13,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 import java.util.Map;
 
-public class ArtifactDeploymentConfigurator extends AbstractTaskConfigurator {
+public class WarDeploymentTaskConfigurator extends AbstractTaskConfigurator {
     private TextProvider textProvider;
 
     private static final List<String> FIELDS_TO_COPY = ImmutableList.of("apiKey", "appName", "artifactPath");

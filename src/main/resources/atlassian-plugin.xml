@@ -9,10 +9,10 @@
     <resource type="i18n" name="com.heroku language" location="english"/>
 
     <!-- defines an example task -->
-    <taskType key="com.heroku.ArtifactDeployment" name="Heroku: Deploy Artifact" class="com.heroku.ArtifactDeployment">
-        <description>Deploy a build artifact to Heroku</description>
+    <taskType key="com.heroku.WarDeploymentTask" name="Heroku: War Deployment" class="com.heroku.WarDeploymentTask">
+        <description>Deploy a WAR artifact to Heroku</description>
         <category name="deployment"/>
-        <configuration class="com.heroku.ArtifactDeploymentConfigurator"/>
+        <configuration class="com.heroku.WarDeploymentTaskConfigurator"/>
         <resource type="freemarker" name="edit" location="editArtifactDeployment.ftl"/>
         <resource type="download" name="icon" location="heroku_logo.png"/>
     </taskType>

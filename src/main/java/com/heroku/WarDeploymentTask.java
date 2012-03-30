@@ -9,11 +9,11 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ArtifactDeployment implements TaskType {
+public class WarDeploymentTask implements TaskType {
 
     private final StaticSandbox staticSandbox;
 
-    public ArtifactDeployment() {
+    public WarDeploymentTask() {
         this(new StaticSandbox() {
             public TaskResult success(TaskContext taskContext) {
                 return TaskResultBuilder.create(taskContext).success().build();
@@ -21,7 +21,7 @@ public class ArtifactDeployment implements TaskType {
         });
     }
 
-    public ArtifactDeployment(StaticSandbox staticSandbox) {
+    public WarDeploymentTask(StaticSandbox staticSandbox) {
         this.staticSandbox = staticSandbox;
     }
 

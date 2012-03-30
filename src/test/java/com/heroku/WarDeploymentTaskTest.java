@@ -8,14 +8,14 @@ import com.atlassian.bamboo.task.TaskState;
 import org.jmock.Mock;
 import org.jmock.MockObjectTestCase;
 
-public class ArtifactDeploymentTest extends MockObjectTestCase {
+public class WarDeploymentTaskTest extends MockObjectTestCase {
 
-    private final Mock mockStatics = new Mock(ArtifactDeployment.StaticSandbox.class);
+    private final Mock mockStatics = new Mock(WarDeploymentTask.StaticSandbox.class);
     private final Mock mockContext = new Mock(TaskContext.class);
     private final Mock mockLogger = new Mock(BuildLogger.class);
     private final Mock mockSuccessfulTaskResult = new Mock(TaskResult.class);
     private final ConfigurationMapImpl configMap = new ConfigurationMapImpl();
-    private ArtifactDeployment deploymentTask;
+    private WarDeploymentTask deploymentTaskTask;
 
     @Override
     protected void setUp() throws Exception {
@@ -26,7 +26,7 @@ public class ArtifactDeploymentTest extends MockObjectTestCase {
         mockContext.expects(atLeastOnce()).method("getConfigurationMap").will(returnValue(configMap));
         mockLogger.expects(atLeastOnce()).method("addBuildLogEntry");
         mockSuccessfulTaskResult.expects(atLeastOnce()).method("getTaskState").will(returnValue(TaskState.SUCCESS));
-        deploymentTask = new ArtifactDeployment((ArtifactDeployment.StaticSandbox) mockStatics.proxy());
+        deploymentTaskTask = new WarDeploymentTask((WarDeploymentTask.StaticSandbox) mockStatics.proxy());
     }
 
     public void testDeployment() throws Exception {
@@ -34,7 +34,7 @@ public class ArtifactDeploymentTest extends MockObjectTestCase {
         configMap.put("appName", System.getProperty("heroku.appName"));
         configMap.put("artifactPath", System.getProperty("heroku.warFile"));
 
-        assertEquals(TaskState.SUCCESS, deploymentTask.execute((TaskContext) mockContext.proxy()).getTaskState());
+        assertEquals(TaskState.SUCCESS, deploymentTaskTask.execute((TaskContext) mockContext.proxy()).getTaskState());
     }
 
 }
