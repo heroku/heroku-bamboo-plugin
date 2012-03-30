@@ -26,7 +26,7 @@ public class WarDeploymentTaskTest extends MockObjectTestCase {
         mockContext.expects(atLeastOnce()).method("getConfigurationMap").will(returnValue(configMap));
         mockLogger.expects(atLeastOnce()).method("addBuildLogEntry");
         mockSuccessfulTaskResult.expects(atLeastOnce()).method("getTaskState").will(returnValue(TaskState.SUCCESS));
-        deploymentTaskTask = new WarDeploymentTask((WarDeploymentTask.StaticSandbox) mockStatics.proxy());
+        deploymentTaskTask = new WarDeploymentTask((AbstractDeploymentTask.StaticSandbox) mockStatics.proxy());
     }
 
     public void testDeployment() throws Exception {
