@@ -103,4 +103,8 @@ public abstract class AbstractDeploymentTask implements TaskType {
     protected abstract String getPipelineName();
     
     protected abstract void addFiles(TaskContext taskContext, Map<String, File> files);
+
+    protected File absolutePath(TaskContext taskContext, String relativeFilepath) {
+        return new File(taskContext.getWorkingDirectory().getAbsolutePath() + "/" + relativeFilepath);
+    }
 }

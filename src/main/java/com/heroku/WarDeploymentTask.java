@@ -22,7 +22,6 @@ public class WarDeploymentTask extends AbstractDeploymentTask {
 
     @Override
     protected void addFiles(TaskContext taskContext, Map<String, File> files) {
-        final String artifactPath = taskContext.getConfigurationMap().get("artifactPath");
-        files.put("war", new File(taskContext.getWorkingDirectory().getAbsolutePath() + "/" + artifactPath));
+        files.put("war", absolutePath(taskContext, taskContext.getConfigurationMap().get("war")));
     }
 }

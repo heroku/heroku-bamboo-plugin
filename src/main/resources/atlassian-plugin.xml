@@ -8,12 +8,19 @@
     <!-- internationalize your plugin -->
     <resource type="i18n" name="com.heroku language" location="english"/>
 
-    <!-- defines an example task -->
     <taskType key="com.heroku.WarDeploymentTask" name="Heroku: War Deployment" class="com.heroku.WarDeploymentTask">
         <description>Deploy a WAR artifact to Heroku</description>
         <category name="deployment"/>
         <configuration class="com.heroku.WarDeploymentTaskConfigurator"/>
-        <resource type="freemarker" name="edit" location="editArtifactDeployment.ftl"/>
+        <resource type="freemarker" name="edit" location="WarDeploymentTask.ftl"/>
+        <resource type="download" name="icon" location="heroku_logo.png"/>
+    </taskType>
+
+    <taskType key="com.heroku.FatJarDeploymentTask" name="Heroku: Fat Jar Deployment" class="com.heroku.FatJarDeploymentTask">
+        <description>Deploy a fat JAR artifact to Heroku</description>
+        <category name="deployment"/>
+        <configuration class="com.heroku.FatJarDeploymentTaskConfigurator"/>
+        <resource type="freemarker" name="edit" location="FatJarDeploymentTask.ftl"/>
         <resource type="download" name="icon" location="heroku_logo.png"/>
     </taskType>
 </atlassian-plugin>

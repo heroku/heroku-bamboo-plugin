@@ -4,10 +4,10 @@ import com.google.common.collect.ImmutableList;
 
 import java.util.List;
 
-public class WarDeploymentTaskConfigurator extends AbstractDeploymentTaskConfigurator {
+public class FatJarDeploymentTaskConfigurator extends AbstractDeploymentTaskConfigurator {
 
     @Override
     protected List<String> getRequiredFiles() {
-        return ImmutableList.of("war");
+        return ImmutableList.of("jar", "procfile");
     }
 }
