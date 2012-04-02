@@ -56,10 +56,12 @@ public abstract class AbstractDeploymentTask<P extends DeploymentPipeline> imple
 
         buildLogger.addBuildLogEntry("Preparing to deploy to Heroku app [" + appName + "] via [" + pipelineName + "] pipeline");
         
-        final Map<String, File> files = new HashMap<String, File>(1);
-        addFiles(taskContext, files);
-        for (Map.Entry<String,File> file : files.entrySet()) {
-            buildLogger.addBuildLogEntry("Adding [" + file.getKey()  + "]: " + file.getValue());
+        final Map<String, File> files = new HashMap<String, File>(pipeline.getRequiredFiles().size());
+        final String workingDir = taskContext.getWorkingDirectory().getAbsolutePath() + "/";
+        for (String file : pipeline.getRequiredFiles()) {
+            final String filepath = workingDir + taskContext.getConfigurationMap().get(file);
+            buildLogger.addBuildLogEntry("Adding [" + file  + "]: " + filepath);
+            files.put(file, new File(filepath));
         }
 
         try {
@@ -84,10 +86,4 @@ public abstract class AbstractDeploymentTask<P extends DeploymentPipeline> imple
                 : staticSandbox.failed(taskContext);
     }
 
-    protected void addFiles(TaskContext taskContext, Map<String, File> files) {
-        final String workingDir = taskContext.getWorkingDirectory().getAbsolutePath() + "/";
-        for (String reqFile : pipeline.getRequiredFiles()) {
-            files.put(reqFile, new File(workingDir + taskContext.getConfigurationMap().get(reqFile)));
-        }
-    }
 }
