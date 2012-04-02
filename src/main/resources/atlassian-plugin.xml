@@ -23,4 +23,12 @@
         <resource type="freemarker" name="edit" location="FatJarDeploymentTask.ftl"/>
         <resource type="download" name="icon" location="heroku_logo.png"/>
     </taskType>
+
+    <taskType key="com.heroku.TarGzJarDeploymentTask" name="Heroku: Tar Gz Jar Deployment" class="com.heroku.TarGzDeploymentTask">
+        <description>Deploy a fat TAR GZ artifact to Heroku</description>
+        <category name="deployment"/>
+        <configuration class="com.heroku.TargGzDeploymentTaskConfigurator"/>
+        <resource type="freemarker" name="edit" location="TarGzDeploymentTask.ftl"/>
+        <resource type="download" name="icon" location="heroku_logo.png"/>
+    </taskType>
 </atlassian-plugin>

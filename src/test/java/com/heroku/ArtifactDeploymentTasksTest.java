@@ -54,7 +54,13 @@ public class ArtifactDeploymentTasksTest extends MockObjectTestCase {
         configMap.put("procfile", System.getProperty("heroku.procfileFile"));
         assertEquals(TaskState.SUCCESS, runTask(FatJarDeploymentTask.class, FatJarDeploymentTaskConfigurator.class).getTaskState());
     }
-    
+
+    public void testTarGzDeployment() throws Exception {
+        configMap.put("targz", System.getProperty("heroku.targzFile"));
+        configMap.put("procfile", System.getProperty("heroku.procfileFile"));
+        assertEquals(TaskState.SUCCESS, runTask(TarGzDeploymentTask.class, TargGzDeploymentTaskConfigurator.class).getTaskState());
+    }
+
     InvocationMatcher anything() {
         return new AnyArgumentsMatcher();
     }
