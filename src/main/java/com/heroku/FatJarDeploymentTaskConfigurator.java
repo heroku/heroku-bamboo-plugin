@@ -7,7 +7,12 @@ import java.util.List;
 public class FatJarDeploymentTaskConfigurator extends AbstractDeploymentTaskConfigurator {
 
     @Override
-    protected List<String> getRequiredFiles() {
+    public String getPipelineName() {
+        return "fatjar";
+    }
+
+    @Override
+    public List<String> getRequiredFiles() {
         return ImmutableList.of("jar", "procfile");
     }
 }

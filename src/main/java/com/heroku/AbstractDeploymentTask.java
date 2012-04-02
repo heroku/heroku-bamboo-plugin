@@ -17,7 +17,7 @@ import java.util.concurrent.TimeoutException;
 /**
  * @author Ryan Brainard
  */
-public abstract class AbstractDeploymentTask implements TaskType {
+public abstract class AbstractDeploymentTask<P extends DeploymentPipeline> implements TaskType {
 
     /**
      * A sandbox for static methods that don't play well with jMock
@@ -27,10 +27,11 @@ public abstract class AbstractDeploymentTask implements TaskType {
         TaskResult failed(TaskContext taskContext);
     }
     
+    private final P pipeline;
     private final StaticSandbox staticSandbox;
 
-    public AbstractDeploymentTask() {
-        this(new StaticSandbox() {
+    public AbstractDeploymentTask(P pipeline) {
+        this(pipeline, new StaticSandbox() {
             @Override
             public TaskResult success(TaskContext taskContext) {
                 return TaskResultBuilder.create(taskContext).success().build();
@@ -43,7 +44,8 @@ public abstract class AbstractDeploymentTask implements TaskType {
         });
     }
 
-    public AbstractDeploymentTask(StaticSandbox staticSandbox) {
+    public AbstractDeploymentTask(P pipeline, StaticSandbox staticSandbox) {
+        this.pipeline = pipeline;
         this.staticSandbox = staticSandbox;
     }
 
@@ -53,7 +55,7 @@ public abstract class AbstractDeploymentTask implements TaskType {
         final BuildLogger buildLogger = taskContext.getBuildLogger();
         final String apiKey = taskContext.getConfigurationMap().get("apiKey");
         final String appName = taskContext.getConfigurationMap().get("appName");
-        final String pipelineName = getPipelineName();
+        final String pipelineName = pipeline.getPipelineName();
         final DirectToHerokuClient client = new DirectToHerokuClient(apiKey);
 
         buildLogger.addBuildLogEntry("Preparing to deploy to Heroku app [" + appName + "] via [" + pipelineName + "] pipeline");
@@ -99,12 +101,11 @@ public abstract class AbstractDeploymentTask implements TaskType {
                 ? staticSandbox.success(taskContext) 
                 : staticSandbox.failed(taskContext);
     }
-    
-    protected abstract String getPipelineName();
-    
-    protected abstract void addFiles(TaskContext taskContext, Map<String, File> files);
 
-    protected File absolutePath(TaskContext taskContext, String relativeFilepath) {
-        return new File(taskContext.getWorkingDirectory().getAbsolutePath() + "/" + relativeFilepath);
+    protected void addFiles(TaskContext taskContext, Map<String, File> files) {
+        final String workingDir = taskContext.getWorkingDirectory().getAbsolutePath() + "/";
+        for (String reqFile : pipeline.getRequiredFiles()) {
+            files.put(reqFile, new File(workingDir + taskContext.getConfigurationMap().get(reqFile)));
+        }
     }
 }

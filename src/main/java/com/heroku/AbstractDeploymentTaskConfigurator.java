@@ -13,15 +13,12 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 import java.util.Map;
 
-public abstract class AbstractDeploymentTaskConfigurator extends AbstractTaskConfigurator {
+public abstract class AbstractDeploymentTaskConfigurator extends AbstractTaskConfigurator implements DeploymentPipeline {
     private TextProvider textProvider;
 
     protected List<String> getFieldsToCopy() {
         return ImmutableList.<String>builder().add("apiKey", "appName").addAll(getRequiredFiles()).build();
     }
-
-    // TODO: is there any way to link this to the task?
-    protected abstract List<String> getRequiredFiles();
 
     @NotNull
     @Override

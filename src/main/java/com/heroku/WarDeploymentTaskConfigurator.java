@@ -7,7 +7,12 @@ import java.util.List;
 public class WarDeploymentTaskConfigurator extends AbstractDeploymentTaskConfigurator {
 
     @Override
-    protected List<String> getRequiredFiles() {
+    public String getPipelineName() {
+        return "war";
+    }
+
+    @Override
+    public List<String> getRequiredFiles() {
         return ImmutableList.of("war");
     }
 }

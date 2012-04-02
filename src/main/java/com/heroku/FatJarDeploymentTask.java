@@ -1,28 +1,12 @@
 package com.heroku;
 
-import com.atlassian.bamboo.task.TaskContext;
-
-import java.io.File;
-import java.util.Map;
-
-public class FatJarDeploymentTask extends AbstractDeploymentTask {
+public class FatJarDeploymentTask extends AbstractDeploymentTask<FatJarDeploymentTaskConfigurator> {
 
     public FatJarDeploymentTask() {
-        super();
+        super(new FatJarDeploymentTaskConfigurator());
     }
 
     public FatJarDeploymentTask(StaticSandbox staticSandbox) {
-        super(staticSandbox);
-    }
-
-    @Override
-    protected String getPipelineName() {
-        return "fatjar";
-    }
-
-    @Override
-    protected void addFiles(TaskContext taskContext, Map<String, File> files) {
-        files.put("jar", absolutePath(taskContext, taskContext.getConfigurationMap().get("jar")));
-        files.put("procfile", absolutePath(taskContext, taskContext.getConfigurationMap().get("procfile")));
+        super(new FatJarDeploymentTaskConfigurator(), staticSandbox);
     }
 }
