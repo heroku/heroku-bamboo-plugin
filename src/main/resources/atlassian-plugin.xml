@@ -6,9 +6,10 @@
     </plugin-info>
 
     <!-- internationalize your plugin -->
-    <resource type="i18n" name="com.heroku language" location="english"/>
+    <!-- TODO: doesn't seem to be working -->
+    <!--<resource type="i18n" name="com.heroku language" location="english"/>-->
 
-    <taskType key="com.heroku.WarDeploymentTask" name="Heroku: War Deployment" class="com.heroku.WarDeploymentTask">
+    <taskType key="com.heroku.WarDeploymentTask" name="Heroku: WAR Deployment" class="com.heroku.WarDeploymentTask">
         <description>Deploy a WAR artifact to Heroku</description>
         <category name="deployment"/>
         <configuration class="com.heroku.WarDeploymentTaskConfigurator"/>
@@ -16,16 +17,16 @@
         <resource type="download" name="icon" location="heroku_logo.png"/>
     </taskType>
 
-    <taskType key="com.heroku.FatJarDeploymentTask" name="Heroku: Fat Jar Deployment" class="com.heroku.FatJarDeploymentTask">
-        <description>Deploy a fat JAR artifact to Heroku</description>
+    <taskType key="com.heroku.FatJarDeploymentTask" name="Heroku: JAR Deployment" class="com.heroku.FatJarDeploymentTask">
+        <description>Deploy a JAR artifact with dependencies to Heroku</description>
         <category name="deployment"/>
         <configuration class="com.heroku.FatJarDeploymentTaskConfigurator"/>
         <resource type="freemarker" name="edit" location="FatJarDeploymentTask.ftl"/>
         <resource type="download" name="icon" location="heroku_logo.png"/>
     </taskType>
 
-    <taskType key="com.heroku.TarGzJarDeploymentTask" name="Heroku: Tar Gz Jar Deployment" class="com.heroku.TarGzDeploymentTask">
-        <description>Deploy a fat TAR GZ artifact to Heroku</description>
+    <taskType key="com.heroku.TarGzJarDeploymentTask" name="Heroku: TAR GZ Deployment" class="com.heroku.TarGzDeploymentTask">
+        <description>Deploy a TAR GZ artifact to Heroku</description>
         <category name="deployment"/>
         <configuration class="com.heroku.TargGzDeploymentTaskConfigurator"/>
         <resource type="freemarker" name="edit" location="TarGzDeploymentTask.ftl"/>

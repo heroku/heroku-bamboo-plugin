@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 public abstract class AbstractDeploymentTaskConfigurator extends AbstractTaskConfigurator implements DeploymentPipeline {
+
     private TextProvider textProvider;
 
     protected List<String> getFieldsToCopy() {
@@ -48,11 +49,12 @@ public abstract class AbstractDeploymentTaskConfigurator extends AbstractTaskCon
     @Override
     public void validate(@NotNull final ActionParametersMap params, @NotNull final ErrorCollection errorCollection) {
         super.validate(params, errorCollection);
-        final String apiKey = params.getString("apiKey");
-        if (StringUtils.isEmpty(apiKey)) {
-            errorCollection.addError("apiKey", textProvider.getText("com.heroku.say.error"));
+        
+        for (String field : getFieldsToCopy()) {
+            if (StringUtils.isEmpty(params.getString(field))) {
+                errorCollection.addError(field, "Required");
+            }
         }
-        //TODO: more requiredess
     }
 
     public void setTextProvider(final TextProvider textProvider) {
