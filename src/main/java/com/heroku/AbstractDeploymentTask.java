@@ -9,10 +9,6 @@ import org.jetbrains.annotations.NotNull;
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Future;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
 
 /**
  * @author Ryan Brainard
@@ -75,22 +71,8 @@ public abstract class AbstractDeploymentTask<P extends DeploymentPipeline> imple
             return staticSandbox.failed(taskContext);
         }
 
-        final Future<Map<String, String>> deployFuture = client.deployAsync(pipelineName, appName, files);
+        final Map<String, String> deployResults = client.deploy(pipelineName, appName, files);
         buildLogger.addBuildLogEntry("Deploying...");
-
-        final Map<String, String> deployResults;
-        try {
-            deployResults = deployFuture.get(5, TimeUnit.MINUTES);
-        } catch (TimeoutException e) {
-            buildLogger.addErrorLogEntry("Deploy timeout", e);
-            return staticSandbox.failed(taskContext);
-        } catch (InterruptedException e) {
-            buildLogger.addErrorLogEntry("Deploy interrupted", e);
-            return staticSandbox.failed(taskContext);
-        } catch (ExecutionException e) {
-            buildLogger.addErrorLogEntry("Unknown deploy error", e);
-            return staticSandbox.failed(taskContext);
-        }
 
         buildLogger.addBuildLogEntry("Deploy results:");
         for (Map.Entry<String, String> result : deployResults.entrySet()) {
