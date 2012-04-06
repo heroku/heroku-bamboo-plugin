@@ -54,9 +54,13 @@
                 <configuration>
                     <productVersion>${bamboo.version}</productVersion>
                     <productDataVersion>${bamboo.data.version}</productDataVersion>
+                    <systemPropertyVariables>
+                        <heroku.apiKey>${heroku.apiKey}</heroku.apiKey>
+                        <heroku.appName>${heroku.appName}</heroku.appName>
+                    </systemPropertyVariables>
                 </configuration>
             </plugin>
-          
+
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
