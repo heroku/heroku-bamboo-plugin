@@ -16,7 +16,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-public class ArtifactDeploymentTasksTest extends MockObjectTestCase {
+public class ArtifactDeploymentTasksIT extends MockObjectTestCase {
 
     private final Mock mockStatics = new Mock(WarDeploymentTask.StaticSandbox.class);
     private final Mock mockContext = new Mock(TaskContext.class);
