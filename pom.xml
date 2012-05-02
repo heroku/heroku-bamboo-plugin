@@ -54,11 +54,21 @@
                 <configuration>
                     <productVersion>${bamboo.version}</productVersion>
                     <productDataVersion>${bamboo.data.version}</productDataVersion>
-                    <systemPropertyVariables>
-                        <heroku.apiKey>${heroku.apiKey}</heroku.apiKey>
-                        <heroku.appName>${heroku.appName}</heroku.appName>
-                    </systemPropertyVariables>
                 </configuration>
+                <executions>
+                    <execution>
+                        <id>IT</id>
+                        <goals>
+                            <goal>integration-test</goal>
+                        </goals>
+                        <configuration>
+                            <systemPropertyVariables>
+                                <heroku.apiKey>${heroku.apiKey}</heroku.apiKey>
+                                <heroku.appName>${heroku.appName}</heroku.appName>
+                            </systemPropertyVariables>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
 
             <plugin>
