@@ -6,8 +6,7 @@
     </plugin-info>
 
     <!-- internationalize your plugin -->
-    <!-- TODO: doesn't seem to be working -->
-    <!--<resource type="i18n" name="com.heroku language" location="english"/>-->
+    <resource type="i18n" name="com.heroku language" location="english"/>
 
     <taskType key="com.heroku.WarDeploymentTask" name="Heroku: WAR Deployment" class="com.heroku.WarDeploymentTask">
         <description>Deploy a WAR artifact to Heroku</description>
