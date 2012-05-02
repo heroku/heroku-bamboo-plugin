@@ -1,7 +1,10 @@
 Running Locally
 ===============
-1. Download and install [Atlassian Plugin SDK](https://developer.atlassian.com/display/DOCS/Installing+the+Atlassian+Plugin+SDK)
-2. Run: `mvn bamboo:run` Note, if running with your own Maven, be sure to also specify the `settings.xml` in the SDK
+- Install direct-to-heroku-client-java:
+    - git clone git@github.com:heroku/direct-to-heroku-client-java.git
+    - mvn install -DskipTests
+- Download and install [Atlassian Plugin SDK](https://developer.atlassian.com/display/DOCS/Installing+the+Atlassian+Plugin+SDK)
+- Run: `mvn bamboo:run` Note, if running with your own Maven, be sure to also specify the `settings.xml` in the SDK
 
 Tests
 =====
