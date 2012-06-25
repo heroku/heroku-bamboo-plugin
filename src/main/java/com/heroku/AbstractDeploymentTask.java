@@ -52,7 +52,8 @@ public abstract class AbstractDeploymentTask<P extends DeploymentPipeline> imple
         final String apiKey = taskContext.getConfigurationMap().get("apiKey");
         final String appName = taskContext.getConfigurationMap().get("appName");
         final String pipelineName = pipeline.getPipelineName();
-        final DirectToHerokuClient client = new DirectToHerokuClient(apiKey);
+        final DirectToHerokuClient client = new DirectToHerokuClient.Builder().setApiKey(apiKey).build();
+        // TODO: Add user agent
 
         buildLogger.addBuildLogEntry("Preparing to deploy to Heroku app [" + appName + "] via [" + pipelineName + "] pipeline");
         
