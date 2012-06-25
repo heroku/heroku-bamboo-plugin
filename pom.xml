@@ -88,5 +88,11 @@
             <name>JBoss.org Maven repository</name>
             <url>https://repository.jboss.org/nexus/content/groups/public</url>
         </repository>
+
+        <!-- Temporary distribution workaround TODO: replace with permanent solution -->
+        <repository>
+            <id>com.github.ryanbrainard.repo</id>
+            <url>https://raw.github.com/ryanbrainard/repo/master</url>
+        </repository>
     </repositories>
 </project>
