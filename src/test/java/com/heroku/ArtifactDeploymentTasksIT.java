@@ -41,7 +41,7 @@ public class ArtifactDeploymentTasksIT extends MockObjectTestCase {
         mockFailedTaskResult.expects(anything()).method("getTaskState").will(returnValue(TaskState.FAILED));
     }
     
-    protected TaskResult runTask(Class<? extends AbstractDeploymentTask> taskClass, Class<? extends AbstractDeploymentTaskConfigurator> configuratorClass) throws Exception {
+    protected TaskResult runTask(Class<? extends AbstractDeploymentTask> taskClass) throws Exception {
         configMap.put("apiKey", System.getProperty("heroku.apiKey"));
         configMap.put("appName", System.getProperty("heroku.appName"));
         TaskType task = taskClass.getConstructor(AbstractDeploymentTask.StaticSandbox.class).newInstance((AbstractDeploymentTask.StaticSandbox) mockStatics.proxy());
@@ -50,19 +50,20 @@ public class ArtifactDeploymentTasksIT extends MockObjectTestCase {
     
     public void testWarDeployment() throws Exception {
         configMap.put("war", File.createTempFile("some", ".war", workingDir).getName());
-        assertEquals(TaskState.SUCCESS, runTask(WarDeploymentTask.class, WarDeploymentTaskConfigurator.class).getTaskState());
+        final TaskResult taskResult = runTask(WarDeploymentTask.class);
+        assertEquals(TaskState.SUCCESS, taskResult.getTaskState());
     }
 
     public void testFatJarDeployment() throws Exception {
         configMap.put("jar", File.createTempFile("some", ".jar", workingDir).getName());
         configMap.put("procfile", createProcfile(workingDir).getName());
-        assertEquals(TaskState.SUCCESS, runTask(FatJarDeploymentTask.class, FatJarDeploymentTaskConfigurator.class).getTaskState());
+        assertEquals(TaskState.SUCCESS, runTask(FatJarDeploymentTask.class).getTaskState());
     }
 
     public void testTarGzDeployment() throws Exception {
         configMap.put("targz", File.createTempFile("some", ".tar.gz", workingDir).getName());
         configMap.put("procfile", createProcfile(workingDir).getName());
-        assertEquals(TaskState.SUCCESS, runTask(TarGzDeploymentTask.class, TargGzDeploymentTaskConfigurator.class).getTaskState());
+        assertEquals(TaskState.SUCCESS, runTask(TarGzDeploymentTask.class).getTaskState());
     }
 
     InvocationMatcher anything() {
