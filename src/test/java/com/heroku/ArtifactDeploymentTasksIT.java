@@ -2,6 +2,7 @@ package com.heroku;
 
 import com.atlassian.bamboo.build.logger.BuildLogger;
 import com.atlassian.bamboo.configuration.ConfigurationMapImpl;
+import com.atlassian.bamboo.security.StringEncrypter;
 import com.atlassian.bamboo.task.TaskContext;
 import com.atlassian.bamboo.task.TaskResult;
 import com.atlassian.bamboo.task.TaskState;
@@ -42,7 +43,7 @@ public class ArtifactDeploymentTasksIT extends MockObjectTestCase {
     }
     
     protected TaskResult runTask(Class<? extends AbstractDeploymentTask> taskClass) throws Exception {
-        configMap.put("apiKey", System.getProperty("heroku.apiKey"));
+        configMap.put("apiKey", new StringEncrypter().encrypt(System.getProperty("heroku.apiKey")));
         configMap.put("appName", System.getProperty("heroku.appName"));
         TaskType task = taskClass.getConstructor(AbstractDeploymentTask.StaticSandbox.class).newInstance((AbstractDeploymentTask.StaticSandbox) mockStatics.proxy());
         return task.execute((TaskContext) mockContext.proxy());

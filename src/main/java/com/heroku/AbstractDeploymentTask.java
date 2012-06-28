@@ -1,6 +1,7 @@
 package com.heroku;
 
 import com.atlassian.bamboo.build.logger.BuildLogger;
+import com.atlassian.bamboo.security.StringEncrypter;
 import com.atlassian.bamboo.task.*;
 import com.herokuapp.directto.client.DeployRequest;
 import com.herokuapp.directto.client.DirectToHerokuClient;
@@ -12,9 +13,10 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.herokuapp.directto.client.EventSubscription.*;
+import static com.herokuapp.directto.client.EventSubscription.Event;
 import static com.herokuapp.directto.client.EventSubscription.Event.POLL_START;
 import static com.herokuapp.directto.client.EventSubscription.Event.UPLOAD_START;
+import static com.herokuapp.directto.client.EventSubscription.Subscriber;
 
 /**
  * @author Ryan Brainard
@@ -55,14 +57,14 @@ public abstract class AbstractDeploymentTask<P extends DeploymentPipeline> imple
     @Override
     public TaskResult execute(@NotNull final TaskContext taskContext) throws TaskException {
         final BuildLogger buildLogger = taskContext.getBuildLogger();
-        final String apiKey = taskContext.getConfigurationMap().get("apiKey");
+        final String apiKey = new StringEncrypter().decrypt(taskContext.getConfigurationMap().get("apiKey"));
         final String appName = taskContext.getConfigurationMap().get("appName");
         final String pipelineName = pipeline.getPipelineName();
         final DirectToHerokuClient client = new DirectToHerokuClient.Builder().setApiKey(apiKey).build();
         // TODO: Add user agent
 
         buildLogger.addBuildLogEntry("Preparing to deploy to Heroku app [" + appName + "] via [" + pipelineName + "] pipeline");
-        
+
         final Map<String, File> files = new HashMap<String, File>(pipeline.getRequiredFiles().size());
         final String workingDir = taskContext.getWorkingDirectory().getAbsolutePath() + "/";
         for (String file : pipeline.getRequiredFiles()) {
