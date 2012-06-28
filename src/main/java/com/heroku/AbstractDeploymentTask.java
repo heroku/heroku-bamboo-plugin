@@ -60,8 +60,12 @@ public abstract class AbstractDeploymentTask<P extends DeploymentPipeline> imple
         final String apiKey = new StringEncrypter().decrypt(taskContext.getConfigurationMap().get("apiKey"));
         final String appName = taskContext.getConfigurationMap().get("appName");
         final String pipelineName = pipeline.getPipelineName();
-        final DirectToHerokuClient client = new DirectToHerokuClient.Builder().setApiKey(apiKey).build();
-        // TODO: Add user agent
+        final DirectToHerokuClient client = new DirectToHerokuClient.Builder()
+                .setApiKey(apiKey)
+                .setConsumersUserAgent(HerokuPluginProperties.getUserAgent())
+                .build();
+
+
 
         buildLogger.addBuildLogEntry("Preparing to deploy to Heroku app [" + appName + "] via [" + pipelineName + "] pipeline");
 
