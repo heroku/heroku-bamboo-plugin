@@ -2,13 +2,19 @@ package com.heroku;
 
 import com.atlassian.bamboo.build.logger.BuildLogger;
 import com.atlassian.bamboo.task.*;
+import com.herokuapp.directto.client.DeployRequest;
 import com.herokuapp.directto.client.DirectToHerokuClient;
+import com.herokuapp.directto.client.EventSubscription;
 import com.herokuapp.directto.client.VerificationException;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
+
+import static com.herokuapp.directto.client.EventSubscription.*;
+import static com.herokuapp.directto.client.EventSubscription.Event.POLL_START;
+import static com.herokuapp.directto.client.EventSubscription.Event.UPLOAD_START;
 
 /**
  * @author Ryan Brainard
@@ -65,8 +71,22 @@ public abstract class AbstractDeploymentTask<P extends DeploymentPipeline> imple
             files.put(file, new File(filepath));
         }
 
+        final DeployRequest deployRequest = new DeployRequest(pipelineName, appName, files)
+                .setEventSubscription(new EventSubscription()
+                        .subscribe(UPLOAD_START, new Subscriber() {
+                            public void handle(Event event) {
+                                buildLogger.addBuildLogEntry("Uploading...");
+                            }
+                        })
+                        .subscribe(POLL_START, new Subscriber() {
+                            public void handle(Event event) {
+                                buildLogger.addBuildLogEntry("Deploying...");
+                            }
+                        })
+                );
+
         try {
-            client.verify(pipelineName, appName, files);
+            client.verify(deployRequest);
         } catch (VerificationException e) {
             for (String msg : e.getMessages()) {
                 buildLogger.addErrorLogEntry(msg);
@@ -74,8 +94,7 @@ public abstract class AbstractDeploymentTask<P extends DeploymentPipeline> imple
             return staticSandbox.failed(taskContext);
         }
 
-        final Map<String, String> deployResults = client.deploy(pipelineName, appName, files);
-        buildLogger.addBuildLogEntry("Deploying...");
+        final Map<String, String> deployResults = client.deploy(deployRequest);
 
         buildLogger.addBuildLogEntry("Deploy results:");
         for (Map.Entry<String, String> result : deployResults.entrySet()) {
