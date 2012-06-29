@@ -30,7 +30,7 @@ class HerokuPluginProperties {
     }
 
     static String getUserAgent() {
-        return "heroku-jenkins-plugin/" + getVersion();
+        return "heroku-bamboo-plugin/" + getVersion();
     }
 
     /**
