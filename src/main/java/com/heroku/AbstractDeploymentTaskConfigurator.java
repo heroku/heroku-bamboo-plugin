@@ -1,11 +1,13 @@
 package com.heroku;
 
 import com.atlassian.bamboo.collections.ActionParametersMap;
+import com.atlassian.bamboo.security.EncryptionException;
 import com.atlassian.bamboo.security.StringEncrypter;
 import com.atlassian.bamboo.task.AbstractTaskConfigurator;
 import com.atlassian.bamboo.task.TaskDefinition;
 import com.atlassian.bamboo.user.BambooAuthenticationContext;
 import com.atlassian.bamboo.utils.error.ErrorCollection;
+import com.atlassian.bamboo.ww2.actions.build.admin.config.task.ConfigureBuildTasks;
 import com.google.common.collect.ImmutableList;
 import com.opensymphony.xwork.TextProvider;
 import org.apache.commons.lang.StringUtils;
@@ -18,9 +20,8 @@ import java.util.Map;
 
 public abstract class AbstractDeploymentTaskConfigurator extends AbstractTaskConfigurator implements DeploymentPipeline {
 
-    private static final String API_KEY = "apiKey";
+    static final String API_KEY = "apiKey";
     private static final String APP_NAME = "appName";
-    private static final String DUMMY_API_KEY = "0000000000000000000000000000000";
 
     private TextProvider textProvider;
 
@@ -45,14 +46,12 @@ public abstract class AbstractDeploymentTaskConfigurator extends AbstractTaskCon
     public void populateContextForEdit(@NotNull final Map<String, Object> context, @NotNull final TaskDefinition taskDefinition) {
         super.populateContextForEdit(context, taskDefinition);
         taskConfiguratorHelper.populateContextWithConfiguration(context, taskDefinition, getFieldsToCopy());
-        replaceApiKeyWithDummy(context);
     }
 
     @Override
     public void populateContextForView(@NotNull final Map<String, Object> context, @NotNull final TaskDefinition taskDefinition) {
         super.populateContextForView(context, taskDefinition);
         taskConfiguratorHelper.populateContextWithConfiguration(context, taskDefinition, getFieldsToCopy());
-        replaceApiKeyWithDummy(context);
     }
 
     @Override
@@ -67,18 +66,18 @@ public abstract class AbstractDeploymentTaskConfigurator extends AbstractTaskCon
 
         if (params.containsKey(API_KEY)) {
             if (!(params.get(API_KEY) instanceof String[])) { throw new RuntimeException("Unexpected API_KEY format"); }
-            final String[] unencryptedApiKeyArray = (String[]) params.get(API_KEY);
-            if (unencryptedApiKeyArray.length != 1) { throw new RuntimeException("Unexpected API_KEY array length"); }
+            final String[] apiKeyArray = (String[]) params.get(API_KEY);
+            if (apiKeyArray.length != 1) { throw new RuntimeException("Unexpected API_KEY array length"); }
+            final String apiKey = apiKeyArray[0];
 
-            if (!DUMMY_API_KEY.equals(unencryptedApiKeyArray[0])) {
-                params.put(API_KEY, new String[]{new StringEncrypter().encrypt(unencryptedApiKeyArray[0])});
+            final StringEncrypter stringEncrypter = new StringEncrypter();
+            try {
+                // test if the key is already encrypted
+                stringEncrypter.decrypt(apiKey);
+            } catch (EncryptionException e) {
+                // otherwise, encrypt it
+                params.put(API_KEY, new String[]{stringEncrypter.encrypt(apiKey)});
             }
-        }
-    }
-
-    private void replaceApiKeyWithDummy(Map<String, Object> context) {
-        if (context.containsKey(API_KEY)) {
-            context.put(API_KEY, DUMMY_API_KEY);
         }
     }
 
