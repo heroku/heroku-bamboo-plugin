@@ -7,6 +7,7 @@ import com.atlassian.bamboo.task.AbstractTaskConfigurator;
 import com.atlassian.bamboo.task.TaskDefinition;
 import com.atlassian.bamboo.user.BambooAuthenticationContext;
 import com.atlassian.bamboo.utils.error.ErrorCollection;
+import com.atlassian.bamboo.utils.i18n.I18nBean;
 import com.atlassian.bamboo.ww2.actions.build.admin.config.task.ConfigureBuildTasks;
 import com.google.common.collect.ImmutableList;
 import com.opensymphony.xwork.TextProvider;
@@ -22,8 +23,6 @@ public abstract class AbstractDeploymentTaskConfigurator extends AbstractTaskCon
 
     static final String API_KEY = "apiKey";
     private static final String APP_NAME = "appName";
-
-    private TextProvider textProvider;
 
     protected List<String> getFieldsToCopy() {
         return ImmutableList.<String>builder().add(API_KEY, APP_NAME).addAll(getRequiredFiles()).build();
@@ -60,7 +59,7 @@ public abstract class AbstractDeploymentTaskConfigurator extends AbstractTaskCon
         
         for (String field : getFieldsToCopy()) {
             if (StringUtils.isEmpty(params.getString(field))) {
-                errorCollection.addError(field, "Required");
+                errorCollection.addError(field, getI18nBean().getText("com.heroku.errors.emptyField"));
             }
         }
 
@@ -81,7 +80,4 @@ public abstract class AbstractDeploymentTaskConfigurator extends AbstractTaskCon
         }
     }
 
-    public void setTextProvider(final TextProvider textProvider) {
-        this.textProvider = textProvider;
-    }
 }
