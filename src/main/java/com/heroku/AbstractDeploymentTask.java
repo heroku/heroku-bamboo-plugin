@@ -65,7 +65,7 @@ public abstract class AbstractDeploymentTask<P extends DeploymentPipeline> imple
                 .setConsumersUserAgent(HerokuPluginProperties.getUserAgent())
                 .build();
 
-        buildLogger.addBuildLogEntry("Preparing to deploy to Heroku app [" + appName + "] via [" + pipelineName + "] pipeline");
+        buildLogger.addBuildLogEntry("Preparing to deploy to Heroku app [" + appName + "]");
 
         final Map<String, File> files = new HashMap<String, File>(pipeline.getRequiredFiles().size());
         final String workingDir = taskContext.getWorkingDirectory().getAbsolutePath() + "/";
