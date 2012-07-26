@@ -2,12 +2,10 @@ package com.heroku;
 
 import com.atlassian.bamboo.collections.ActionParametersMap;
 import com.atlassian.bamboo.security.StringEncrypter;
-import com.atlassian.bamboo.webwork.util.ActionParametersMapImpl;
 import org.jmock.Mock;
 import org.jmock.MockObjectTestCase;
 
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 
 import static com.heroku.AbstractDeploymentTaskConfigurator.API_KEY;
