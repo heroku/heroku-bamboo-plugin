@@ -65,7 +65,7 @@ public abstract class AbstractDeploymentTask<P extends DeploymentPipeline> imple
                 .setConsumersUserAgent(HerokuPluginProperties.getUserAgent())
                 .build();
 
-        buildLogger.addBuildLogEntry("Preparing to deploy to Heroku app [" + appName + "]");
+        buildLogger.addBuildLogEntry("Preparing to deploy " + pipelineName + " to Heroku app " + appName);
 
         final Map<String, File> files = new HashMap<String, File>(pipeline.getRequiredFiles().size());
         final String workingDir = taskContext.getWorkingDirectory().getAbsolutePath() + "/";
@@ -100,10 +100,7 @@ public abstract class AbstractDeploymentTask<P extends DeploymentPipeline> imple
 
         final Map<String, String> deployResults = client.deploy(deployRequest);
 
-        buildLogger.addBuildLogEntry("Deploy results:");
-        for (Map.Entry<String, String> result : deployResults.entrySet()) {
-            buildLogger.addBuildLogEntry(" - " + result.getKey() + ":" + result.getValue());
-        }
+        buildLogger.addBuildLogEntry("Released " + deployResults.get("release") + " to " + appName);
 
         return "success".equals(deployResults.get("status"))
                 ? staticSandbox.success(taskContext) 
