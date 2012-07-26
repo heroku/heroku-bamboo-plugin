@@ -55,18 +55,6 @@ public class ArtifactDeploymentTasksIT extends MockObjectTestCase {
         assertEquals(TaskState.SUCCESS, taskResult.getTaskState());
     }
 
-    public void testFatJarDeployment() throws Exception {
-        configMap.put("jar", File.createTempFile("some", ".jar", workingDir).getName());
-        configMap.put("procfile", createProcfile(workingDir).getName());
-        assertEquals(TaskState.SUCCESS, runTask(FatJarDeploymentTask.class).getTaskState());
-    }
-
-    public void testTarGzDeployment() throws Exception {
-        configMap.put("targz", File.createTempFile("some", ".tar.gz", workingDir).getName());
-        configMap.put("procfile", createProcfile(workingDir).getName());
-        assertEquals(TaskState.SUCCESS, runTask(TarGzDeploymentTask.class).getTaskState());
-    }
-
     InvocationMatcher anything() {
         return new AnyArgumentsMatcher();
     }
