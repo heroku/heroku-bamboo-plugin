@@ -3,6 +3,7 @@ package com.heroku;
 import org.apache.commons.collections.map.UnmodifiableMap;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Map;
 import java.util.Properties;
 
@@ -20,11 +21,22 @@ class HerokuPluginProperties {
      */
     private static Map<String, String> loadProjectProperties() {
         Properties projectProperties = new Properties();
+        InputStream propStream = null;
         try {
-            projectProperties.load(HerokuPluginProperties.class.getClassLoader().getResourceAsStream("heroku-bamboo-plugin.properties"));
+            propStream = HerokuPluginProperties.class.getClassLoader().getResourceAsStream("heroku-bamboo-plugin.properties");
+            projectProperties.load(propStream);
         } catch (IOException e) {
             throw new RuntimeException(e);
+        } finally {
+            if (propStream != null) {
+                try {
+                    propStream.close();
+                } catch (IOException e) {
+                    // ignore
+                }
+            }
         }
+
         //noinspection unchecked
         return UnmodifiableMap.decorate(projectProperties);
     }
