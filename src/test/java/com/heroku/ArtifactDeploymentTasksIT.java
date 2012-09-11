@@ -20,8 +20,6 @@ import java.io.PrintWriter;
 public class ArtifactDeploymentTasksIT extends BaseHerokuTest {
 
     protected TaskResult runTask(Class<? extends AbstractDeploymentTask> taskClass) throws Exception {
-        configMap.put("apiKey", new StringEncrypter().encrypt(System.getProperty("heroku.apiKey")));
-        configMap.put("appName", System.getProperty("heroku.appName"));
         TaskType task = taskClass.getConstructor(AbstractDeploymentTask.StaticSandbox.class).newInstance((AbstractDeploymentTask.StaticSandbox) mockStatics.proxy());
         return task.execute((TaskContext) mockContext.proxy());
     }

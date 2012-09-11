@@ -2,9 +2,11 @@ package com.heroku;
 
 import com.atlassian.bamboo.build.logger.BuildLogger;
 import com.atlassian.bamboo.configuration.ConfigurationMapImpl;
+import com.atlassian.bamboo.security.StringEncrypter;
 import com.atlassian.bamboo.task.TaskContext;
 import com.atlassian.bamboo.task.TaskResult;
 import com.atlassian.bamboo.task.TaskState;
+import com.heroku.api.HerokuAPI;
 import org.jmock.Mock;
 import org.jmock.MockObjectTestCase;
 import org.jmock.core.InvocationMatcher;
@@ -28,6 +30,11 @@ public class BaseHerokuTest extends MockObjectTestCase {
     protected final ConfigurationMapImpl configMap = new ConfigurationMapImpl();
     protected final File workingDir = createTempDir();
 
+    protected final String apiKey = System.getProperty("heroku.apiKey");
+    protected final HerokuAPI api = new HerokuAPI(apiKey);
+    protected final String encryptedApiKey = new StringEncrypter().encrypt(apiKey);
+    protected final String appName = System.getProperty("heroku.appName");
+
     @Override
     protected void setUp() throws Exception {
         super.setUp();
@@ -41,6 +48,9 @@ public class BaseHerokuTest extends MockObjectTestCase {
         mockLogger.expects(anything()).method("addErrorLogEntry");
         mockSuccessfulTaskResult.expects(anything()).method("getTaskState").will(returnValue(TaskState.SUCCESS));
         mockFailedTaskResult.expects(anything()).method("getTaskState").will(returnValue(TaskState.FAILED));
+
+        configMap.put("apiKey", encryptedApiKey);
+        configMap.put("appName", appName);
     }
 
     protected InvocationMatcher anything() {
@@ -69,6 +79,24 @@ public class BaseHerokuTest extends MockObjectTestCase {
             throw new RuntimeException(e);
         } catch (IOException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    public void assertStringContains(String message, String haystack, String needle) {
+        if (haystack.contains(needle)) {
+            // good
+            return;
+        } else {
+            fail(message + " (seeking '" + needle + "')");
+        }
+    }
+
+    public void assertStringContains(String haystack, String needle) {
+        if (haystack.contains(needle)) {
+            // good
+            return;
+        } else {
+            fail("Could not find '" + needle + "'.");
         }
     }
 }
