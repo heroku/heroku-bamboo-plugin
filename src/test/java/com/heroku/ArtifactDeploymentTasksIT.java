@@ -33,7 +33,7 @@ public class ArtifactDeploymentTasksIT extends MockObjectTestCase {
 
         mockStatics.expects(anything()).method("success").will(returnValue(mockSuccessfulTaskResult.proxy()));
         mockStatics.expects(anything()).method("failed").will(returnValue(mockFailedTaskResult.proxy()));
-        mockContext.expects(once()).method("getBuildLogger").will(returnValue(mockLogger.proxy()));
+        mockContext.expects(atLeastOnce()).method("getBuildLogger").will(returnValue(mockLogger.proxy()));
         mockContext.expects(atLeastOnce()).method("getConfigurationMap").will(returnValue(configMap));
         mockContext.expects(atLeastOnce()).method("getWorkingDirectory").will(returnValue(workingDir));
         mockLogger.expects(anything()).method("addBuildLogEntry");
