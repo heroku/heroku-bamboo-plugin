@@ -20,7 +20,7 @@ import java.io.PrintWriter;
 /**
  * @author Ryan Brainard
  */
-public class BaseHerokuTest extends MockObjectTestCase {
+public abstract class BaseHerokuTest extends MockObjectTestCase {
 
     protected final Mock mockStatics = new Mock(WarDeploymentTask.StaticSandbox.class);
     protected final Mock mockContext = new Mock(TaskContext.class);
