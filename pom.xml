@@ -22,6 +22,7 @@
         <bamboo.version>3.3</bamboo.version>
         <bamboo.data.version>3.2.2</bamboo.data.version>
         <amps.version>3.9</amps.version>
+        <com.heroku.api.version>0.13</com.heroku.api.version>
     </properties>
 
     <dependencies>
@@ -30,6 +31,21 @@
             <artifactId>atlassian-bamboo-web</artifactId>
             <version>${bamboo.version}</version>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.heroku.api</groupId>
+            <artifactId>heroku-api</artifactId>
+            <version>${com.heroku.api.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.heroku.api</groupId>
+            <artifactId>heroku-http-jersey-client</artifactId>
+            <version>${com.heroku.api.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.heroku.api</groupId>
+            <artifactId>heroku-json-jersey-client</artifactId>
+            <version>${com.heroku.api.version}</version>
         </dependency>
         <dependency>
             <groupId>com.herokuapp.directto</groupId>
