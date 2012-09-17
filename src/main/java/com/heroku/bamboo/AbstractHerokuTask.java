@@ -1,4 +1,4 @@
-package com.heroku;
+package com.heroku.bamboo;
 
 import com.atlassian.bamboo.build.logger.BuildLogger;
 import com.atlassian.bamboo.security.StringEncrypter;

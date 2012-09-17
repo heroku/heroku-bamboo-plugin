@@ -1,4 +1,4 @@
-package com.heroku;
+package com.heroku.bamboo;
 
 import org.apache.commons.collections.map.UnmodifiableMap;
 

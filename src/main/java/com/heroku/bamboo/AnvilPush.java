@@ -1,4 +1,4 @@
-package com.heroku;
+package com.heroku.bamboo;
 
 import com.atlassian.bamboo.task.TaskContext;
 import com.atlassian.bamboo.task.TaskException;

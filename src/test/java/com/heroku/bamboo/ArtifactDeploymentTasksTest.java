@@ -1,14 +1,15 @@
-package com.heroku;
+package com.heroku.bamboo;
 
 import com.atlassian.bamboo.collections.ActionParametersMap;
 import com.atlassian.bamboo.security.StringEncrypter;
+import com.heroku.bamboo.AbstractDeploymentTaskConfigurator;
 import org.jmock.Mock;
 import org.jmock.MockObjectTestCase;
 
 import java.util.Collections;
 import java.util.List;
 
-import static com.heroku.AbstractDeploymentTaskConfigurator.API_KEY;
+import static com.heroku.bamboo.AbstractDeploymentTaskConfigurator.API_KEY;
 
 /**
  * @author Ryan Brainard

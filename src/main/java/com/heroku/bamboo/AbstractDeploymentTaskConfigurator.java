@@ -1,4 +1,4 @@
-package com.heroku;
+package com.heroku.bamboo;
 
 import com.atlassian.bamboo.collections.ActionParametersMap;
 import com.atlassian.bamboo.security.EncryptionException;

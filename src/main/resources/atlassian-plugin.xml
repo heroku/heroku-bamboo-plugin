@@ -8,10 +8,10 @@
     <!-- internationalize your plugin -->
     <resource type="i18n" name="com.heroku language" location="english"/>
 
-    <taskType key="com.heroku.WarDeploymentTask" name="Heroku: WAR Deployment" class="com.heroku.WarDeploymentTask">
+    <taskType key="com.heroku.bamboo.WarDeploymentTask" name="Heroku: WAR Deployment" class="com.heroku.bamboo.WarDeploymentTask">
         <description>Deploy a WAR artifact to Heroku</description>
         <category name="deployment"/>
-        <configuration class="com.heroku.WarDeploymentTaskConfigurator"/>
+        <configuration class="com.heroku.bamboo.WarDeploymentTaskConfigurator"/>
         <resource type="freemarker" name="edit" location="WarDeploymentTask.ftl"/>
         <resource type="download" name="icon" location="heroku_logo.png"/>
     </taskType>

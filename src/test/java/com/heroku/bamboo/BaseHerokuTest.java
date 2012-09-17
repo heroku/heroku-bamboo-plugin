@@ -1,4 +1,4 @@
-package com.heroku;
+package com.heroku.bamboo;
 
 import com.atlassian.bamboo.build.logger.BuildLogger;
 import com.atlassian.bamboo.configuration.ConfigurationMapImpl;
@@ -7,6 +7,7 @@ import com.atlassian.bamboo.task.TaskContext;
 import com.atlassian.bamboo.task.TaskResult;
 import com.atlassian.bamboo.task.TaskState;
 import com.heroku.api.HerokuAPI;
+import com.heroku.bamboo.WarDeploymentTask;
 import org.jmock.Mock;
 import org.jmock.MockObjectTestCase;
 import org.jmock.core.InvocationMatcher;

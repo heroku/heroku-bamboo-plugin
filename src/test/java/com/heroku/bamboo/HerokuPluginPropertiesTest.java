@@ -1,5 +1,6 @@
-package com.heroku;
+package com.heroku.bamboo;
 
+import com.heroku.bamboo.HerokuPluginProperties;
 import junit.framework.TestCase;
 
 /**

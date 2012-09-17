@@ -1,7 +1,6 @@
-package com.heroku;
+package com.heroku.bamboo;
 
 import com.atlassian.bamboo.build.logger.BuildLogger;
-import com.atlassian.bamboo.security.StringEncrypter;
 import com.atlassian.bamboo.task.*;
 import com.heroku.api.App;
 import com.heroku.api.HerokuAPI;

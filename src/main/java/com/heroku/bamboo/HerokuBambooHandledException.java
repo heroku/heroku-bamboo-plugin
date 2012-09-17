@@ -1,4 +1,4 @@
-package com.heroku;
+package com.heroku.bamboo;
 
 /**
  * @author Ryan Brainard
