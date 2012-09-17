@@ -8,7 +8,7 @@
     <!-- internationalize your plugin -->
     <resource type="i18n" name="com.heroku language" location="english"/>
 
-    <taskType key="com.heroku.bamboo.WarDeploymentTask" name="Heroku: WAR Deployment" class="com.heroku.bamboo.WarDeploymentTask">
+    <taskType key="com.heroku.bamboo.WarDeploymentTask" name="Heroku: Deploy WAR Artifact" class="com.heroku.bamboo.WarDeploymentTask">
         <description>Deploy a WAR artifact to Heroku</description>
         <category name="deployment"/>
         <configuration class="com.heroku.bamboo.WarDeploymentTaskConfigurator"/>
