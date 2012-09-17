@@ -1,6 +1,6 @@
 Heroku Bamboo Plugin
 ====================
-A plugin for interacting with [Heroku](http://heroku.com) during [Atlassian Bamboo](http://www.atlassian.com/software/bamboo/overview) builds.
+Plugin for integrating with [Heroku](http://heroku.com) with [Atlassian Bamboo](http://www.atlassian.com/software/bamboo/overview).
 Currently, the only build task available is WAR deployment, but expect more tasks to be introduced in the future.
 
 Tasks
@@ -15,7 +15,7 @@ To deploy a WAR file, first make sure your build is successfully creating a depl
 If you are using Maven with `<packaging>war</packaging>`, the `mvn package` command will output the WAR file into its `target` directory.
 Otherwise, create the WAR file in whatever way is approiate for your build.
 
-After the WAR file is created, add the `Heroku: WAR Deployment` task to your build configuration and specify:
+After the WAR file is created, add the `Heroku: Deploy WAR Artifact` task to your build configuration and specify:
 
  - API Key: Your Heroku API key to use for deployment. Your Heroku API key can be obtained from your [Heroku account page](https://api.heroku.com/account).
  - App Name: The app to which to deploy.
