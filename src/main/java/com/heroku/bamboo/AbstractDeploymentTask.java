@@ -79,7 +79,8 @@ public abstract class AbstractDeploymentTask<P extends DeploymentPipeline> exten
 
         final Map<String, String> deployResults = client.deploy(deployRequest);
 
-        buildLogger.addBuildLogEntry("Released " + deployResults.get("release") + " to " + app.getName());
+        buildLogger.addBuildLogEntry("Launching... done, " +  deployResults.get("release"));
+        buildLogger.addBuildLogEntry(app.getWebUrl() + " deployed to Heroku");
 
         return "success".equals(deployResults.get("status"))
                 ? staticSandbox.success(taskContext)
