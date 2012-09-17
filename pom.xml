@@ -14,7 +14,7 @@
         <url>http://www.heroku.com/</url>
     </organization>
 
-    <name>Heroku Bamboo Plug-In</name>
+    <name>Heroku Plug-In for Bamboo</name>
     <description>Plugin for interacting with Heroku during builds on Atlassian Bamboo</description>
     <packaging>atlassian-plugin</packaging>
 
