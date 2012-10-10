@@ -2,12 +2,11 @@ package com.heroku.bamboo;
 
 import com.atlassian.bamboo.build.logger.BuildLogger;
 import com.atlassian.bamboo.configuration.ConfigurationMapImpl;
-import com.atlassian.bamboo.security.StringEncrypter;
+import com.atlassian.bamboo.security.EncryptionServiceImpl;
 import com.atlassian.bamboo.task.TaskContext;
 import com.atlassian.bamboo.task.TaskResult;
 import com.atlassian.bamboo.task.TaskState;
 import com.heroku.api.HerokuAPI;
-import com.heroku.bamboo.WarDeploymentTask;
 import org.jmock.Mock;
 import org.jmock.MockObjectTestCase;
 import org.jmock.core.InvocationMatcher;
@@ -33,7 +32,7 @@ public abstract class BaseHerokuTest extends MockObjectTestCase {
 
     protected final String apiKey = System.getProperty("heroku.apiKey");
     protected final HerokuAPI api = new HerokuAPI(apiKey);
-    protected final String encryptedApiKey = new StringEncrypter().encrypt(apiKey);
+    protected final String encryptedApiKey = new EncryptionServiceImpl().encrypt(apiKey);
     protected final String appName = System.getProperty("heroku.appName");
 
     @Override

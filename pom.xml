@@ -19,7 +19,7 @@
     <packaging>atlassian-plugin</packaging>
 
     <properties>
-        <bamboo.version>4.0</bamboo.version>
+        <bamboo.version>4.2</bamboo.version>
         <bamboo.data.version>3.2.2</bamboo.data.version>
         <amps.version>4.0-blitz4</amps.version>
         <com.heroku.api.version>0.13</com.heroku.api.version>
@@ -56,6 +56,12 @@
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.6</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>jmock</groupId>
+            <artifactId>jmock</artifactId>
+            <version>1.0.1</version>
             <scope>test</scope>
         </dependency>
     </dependencies>

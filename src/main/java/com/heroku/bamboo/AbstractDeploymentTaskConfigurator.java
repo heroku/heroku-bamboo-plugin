@@ -2,7 +2,7 @@ package com.heroku.bamboo;
 
 import com.atlassian.bamboo.collections.ActionParametersMap;
 import com.atlassian.bamboo.security.EncryptionException;
-import com.atlassian.bamboo.security.StringEncrypter;
+import com.atlassian.bamboo.security.EncryptionService;
 import com.atlassian.bamboo.task.AbstractTaskConfigurator;
 import com.atlassian.bamboo.task.TaskDefinition;
 import com.atlassian.bamboo.utils.error.ErrorCollection;
@@ -18,6 +18,8 @@ public abstract class AbstractDeploymentTaskConfigurator extends AbstractTaskCon
 
     protected static final String API_KEY = "apiKey";
     protected static final String APP_NAME = "appName";
+
+    protected EncryptionService encryptionService;
 
     @Override
     public void populateContextForCreate(@NotNull final Map<String, Object> context) {
@@ -65,15 +67,19 @@ public abstract class AbstractDeploymentTaskConfigurator extends AbstractTaskCon
 
     protected void encryptApiKey(ActionParametersMap params) {
         if (params.containsKey(API_KEY)) {
-            final StringEncrypter stringEncrypter = new StringEncrypter();
             try {
                 // test if the key is already encrypted
-                stringEncrypter.decrypt(params.getString(API_KEY));
+                encryptionService.decrypt(params.getString(API_KEY));
             } catch (EncryptionException e) {
                 // otherwise, encrypt it
-                params.put(API_KEY, stringEncrypter.encrypt(params.getString(API_KEY)));
+                params.put(API_KEY, encryptionService.encrypt(params.getString(API_KEY)));
             }
         }
     }
 
+    /** Spring setter */
+    public void setEncryptionService(EncryptionService encryptionService)
+    {
+        this.encryptionService = encryptionService;
+    }
 }
