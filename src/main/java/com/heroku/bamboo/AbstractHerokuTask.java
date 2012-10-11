@@ -1,8 +1,12 @@
 package com.heroku.bamboo;
 
 import com.atlassian.bamboo.build.logger.BuildLogger;
-import com.atlassian.bamboo.security.StringEncrypter;
-import com.atlassian.bamboo.task.*;
+import com.atlassian.bamboo.security.EncryptionService;
+import com.atlassian.bamboo.task.TaskContext;
+import com.atlassian.bamboo.task.TaskException;
+import com.atlassian.bamboo.task.TaskResult;
+import com.atlassian.bamboo.task.TaskResultBuilder;
+import com.atlassian.bamboo.task.TaskType;
 import com.heroku.api.App;
 import com.heroku.api.Heroku;
 import com.heroku.api.HerokuAPI;
@@ -17,6 +21,7 @@ import java.net.HttpURLConnection;
 public abstract class AbstractHerokuTask implements TaskType {
 
     protected final StaticSandbox staticSandbox;
+    protected EncryptionService encryptionService;
 
     protected AbstractHerokuTask() {
         this(new StaticSandbox() {
@@ -40,7 +45,7 @@ public abstract class AbstractHerokuTask implements TaskType {
     @Override
     public TaskResult execute(@NotNull final TaskContext taskContext) throws TaskException {
         final BuildLogger buildLogger = taskContext.getBuildLogger();
-        final String apiKey = new StringEncrypter().decrypt(taskContext.getConfigurationMap().get(AbstractDeploymentTaskConfigurator.API_KEY));
+        final String apiKey = encryptionService.decrypt(taskContext.getConfigurationMap().get(AbstractDeploymentTaskConfigurator.API_KEY));
         final HerokuAPI api = new HerokuAPI(apiKey);
 
         try {
@@ -90,5 +95,11 @@ public abstract class AbstractHerokuTask implements TaskType {
     protected static interface StaticSandbox {
         TaskResult success(TaskContext taskContext);
         TaskResult failed(TaskContext taskContext);
+    }
+
+    /** Spring setter */
+    public void setEncryptionService(EncryptionService encryptionService)
+    {
+        this.encryptionService = encryptionService;
     }
 }

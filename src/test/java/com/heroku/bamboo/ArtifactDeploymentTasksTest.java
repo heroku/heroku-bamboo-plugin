@@ -1,8 +1,7 @@
 package com.heroku.bamboo;
 
 import com.atlassian.bamboo.collections.ActionParametersMap;
-import com.atlassian.bamboo.security.StringEncrypter;
-import com.heroku.bamboo.AbstractDeploymentTaskConfigurator;
+import com.atlassian.bamboo.security.EncryptionServiceImpl;
 import org.jmock.Mock;
 import org.jmock.MockObjectTestCase;
 
@@ -17,7 +16,7 @@ import static com.heroku.bamboo.AbstractDeploymentTaskConfigurator.API_KEY;
 public class ArtifactDeploymentTasksTest extends MockObjectTestCase {
 
     private static final String PLAIN_TEXT_KEY = "PLAIN_TEXT";
-    private static final String ENCRYPTED_KEY = new StringEncrypter().encrypt(PLAIN_TEXT_KEY);
+    private static final String ENCRYPTED_KEY = new EncryptionServiceImpl().encrypt(PLAIN_TEXT_KEY);
 
     public void testApiKeyEncryption_Blank() throws Exception {
         final Mock mockParams = new Mock(ActionParametersMap.class);
@@ -50,6 +49,11 @@ public class ArtifactDeploymentTasksTest extends MockObjectTestCase {
     }
 
     private static class TestingDeploymentTaskConfigurator extends AbstractDeploymentTaskConfigurator {
+
+        private TestingDeploymentTaskConfigurator()
+        {
+            setEncryptionService(new EncryptionServiceImpl());
+        }
 
         @Override
         public String getPipelineName() {
