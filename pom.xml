@@ -18,6 +18,11 @@
     <description>Plugin for integrating Heroku with Atlassian Bamboo</description>
     <packaging>atlassian-plugin</packaging>
 
+    <scm>
+      <connection>scm:git:git://bitbucket.org/atlassian/heroku-bamboo-plugin.git</connection>
+      <developerConnection>scm:git:ssh://git@bitbucket.org/atlassian/heroku-bamboo-plugin.git</developerConnection>
+    </scm>
+
     <properties>
         <bamboo.version>5.0-tmp</bamboo.version>
         <bamboo.data.version>3.2.2</bamboo.data.version>
