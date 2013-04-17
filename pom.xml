@@ -19,7 +19,7 @@
     <packaging>atlassian-plugin</packaging>
 
     <properties>
-        <bamboo.version>5.0-tmp</bamboo.version>
+        <bamboo.version>5.0-SNAPSHOT</bamboo.version>
         <bamboo.data.version>3.2.2</bamboo.data.version>
         <amps.version>4.0-blitz4</amps.version>
         <com.heroku.api.version>0.13</com.heroku.api.version>
