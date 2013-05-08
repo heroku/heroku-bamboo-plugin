@@ -28,12 +28,12 @@ public abstract class AbstractHerokuTask implements CommonTaskType
         this(new StaticSandbox() {
             @Override
             public TaskResult success(CommonTaskContext taskContext) {
-                return TaskResultBuilder.create(taskContext).success().build();
+                return TaskResultBuilder.newBuilder(taskContext).success().build();
             }
 
             @Override
             public TaskResult failed(CommonTaskContext taskContext) {
-                return TaskResultBuilder.create(taskContext).failed().build();
+                return TaskResultBuilder.newBuilder(taskContext).failed().build();
             }
         });
     }
