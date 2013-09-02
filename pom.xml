@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.heroku.bamboo</groupId>
     <artifactId>heroku-bamboo-plugin</artifactId>
-    <version>1.0.0-atlassian2</version>
+    <version>1.0.0-atlassian2-SNAPSHOT</version>
 
     <organization>
         <name>Heroku</name>
