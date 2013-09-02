@@ -1,7 +1,7 @@
 package com.heroku.bamboo;
 
 import com.atlassian.bamboo.build.logger.BuildLogger;
-import com.atlassian.bamboo.task.TaskContext;
+import com.atlassian.bamboo.task.CommonTaskContext;
 import com.atlassian.bamboo.task.TaskResult;
 import com.heroku.api.App;
 import com.heroku.api.HerokuAPI;
@@ -14,7 +14,7 @@ public class AbstractHerokuTaskIT  extends BaseHerokuTest {
 
     final AbstractHerokuTask step = new AbstractHerokuTask() {
         @Override
-        protected TaskResult execute(TaskContext taskContext, String apiKey, HerokuAPI api, App app) {
+        protected TaskResult execute(CommonTaskContext taskContext, String apiKey, HerokuAPI api, App app) {
             throw new UnsupportedOperationException();
         }
     };
