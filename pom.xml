@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.heroku.bamboo</groupId>
@@ -17,14 +19,14 @@
     <packaging>atlassian-plugin</packaging>
 
     <scm>
-      <connection>scm:git:git://bitbucket.org/atlassian/heroku-bamboo-plugin.git</connection>
-      <developerConnection>scm:git:ssh://git@bitbucket.org/atlassian/heroku-bamboo-plugin.git</developerConnection>
+      <connection>scm:git:ssh://git@github.com/atlassian/heroku-bamboo-plugin.git</connection>
+      <developerConnection>scm:git:ssh://git@github.com/atlassian/heroku-bamboo-plugin.git</developerConnection>
     </scm>
 
     <properties>
-        <bamboo.version>5.0-tmp</bamboo.version>
+        <bamboo.version>5.0</bamboo.version>
         <bamboo.data.version>3.2.2</bamboo.data.version>
-        <amps.version>4.0-blitz4</amps.version>
+        <amps.version>4.1</amps.version>
         <com.heroku.api.version>0.13</com.heroku.api.version>
     </properties>
 
@@ -111,6 +113,13 @@
                 <configuration>
                     <source>1.6</source>
                     <target>1.6</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
+                <version>2.1</version>
+                <configuration>
                 </configuration>
             </plugin>
         </plugins>
