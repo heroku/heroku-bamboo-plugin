@@ -17,8 +17,8 @@
     <packaging>atlassian-plugin</packaging>
 
     <scm>
-      <connection>scm:git:ssh://git@github.com:atlassian/heroku-bamboo-plugin.git</connection>
-      <developerConnection>scm:git:ssh://git@github.com:atlassian/heroku-bamboo-plugin.git</developerConnection>
+      <connection>scm:git:ssh://git@github.com/atlassian/heroku-bamboo-plugin.git</connection>
+      <developerConnection>scm:git:ssh://git@github.com/atlassian/heroku-bamboo-plugin.git</developerConnection>
     </scm>
 
     <properties>
