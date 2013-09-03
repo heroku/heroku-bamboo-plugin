@@ -61,6 +61,7 @@
             <groupId>javax.activation</groupId>
             <artifactId>activation</artifactId>
             <version>1.1.1</version>
+            <scope>provided</scope>
         </dependency>
 
 
@@ -96,6 +97,14 @@
                 <extensions>true</extensions>
                 <configuration>
                     <extractDependencies>false</extractDependencies>
+                    <instructions>
+                      <Export-Package>
+                        com.heroku.bamboo*
+                      </Export-Package>
+                      <Import-Package>
+                        *;resolution:=optional
+                      </Import-Package>
+                    </instructions>
                     <productVersion>${bamboo.version}</productVersion>
                     <productDataVersion>${bamboo.data.version}</productDataVersion>
                     <allowGoogleTracking>false</allowGoogleTracking>
