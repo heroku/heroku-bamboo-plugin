@@ -2,6 +2,12 @@
 
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
+    <parent>
+        <groupId>com.atlassian.pom</groupId>
+        <artifactId>public-pom</artifactId>
+        <version>3.0.91</version>
+    </parent>
+
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.heroku.bamboo</groupId>
     <artifactId>heroku-bamboo-plugin</artifactId>
@@ -22,9 +28,9 @@
     </scm>
 
     <properties>
-        <bamboo.version>5.0</bamboo.version>
-        <bamboo.data.version>3.2.2</bamboo.data.version>
-        <amps.version>4.1</amps.version>
+        <bamboo.version>5.9.3</bamboo.version>
+        <bamboo.data.version>5.9.3</bamboo.data.version>
+        <amps.version>5.0.22</amps.version>
         <com.heroku.api.version>0.13</com.heroku.api.version>
     </properties>
 
