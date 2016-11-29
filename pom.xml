@@ -29,7 +29,7 @@
 
     <properties>
         <bamboo.version>5.9.3</bamboo.version>
-        <bamboo.data.version>5.9.3</bamboo.data.version>
+        <bamboo.data.version>${bamboo.version}</bamboo.data.version>
         <amps.version>5.0.22</amps.version>
         <com.heroku.api.version>0.13</com.heroku.api.version>
     </properties>
