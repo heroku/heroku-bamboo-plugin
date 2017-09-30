@@ -1,3 +1,7 @@
+This project is **DEPRECATED**!
+
+The recommended alternatives are described in the [DevCenter article on WAR Deployment](https://devcenter.heroku.com/articles/war-deployment).
+
 Heroku Bamboo Plugin
 ====================
 Plugin for integrating with [Heroku](http://heroku.com) with [Atlassian Bamboo](http://www.atlassian.com/software/bamboo/overview).
