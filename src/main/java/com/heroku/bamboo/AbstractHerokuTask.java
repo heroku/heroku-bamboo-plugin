@@ -7,6 +7,7 @@ import com.atlassian.bamboo.task.CommonTaskType;
 import com.atlassian.bamboo.task.TaskException;
 import com.atlassian.bamboo.task.TaskResult;
 import com.atlassian.bamboo.task.TaskResultBuilder;
+import com.atlassian.plugin.spring.scanner.annotation.imports.ComponentImport;
 import com.heroku.api.App;
 import com.heroku.api.Heroku;
 import com.heroku.api.HerokuAPI;
@@ -71,7 +72,7 @@ public abstract class AbstractHerokuTask implements CommonTaskType
             }
 
             try {
-                app = api.createApp(new App().named(appName).on(Heroku.Stack.Cedar));
+                app = api.createApp(new App().named(appName).on(Heroku.Stack.Cedar14));
                 buildLogger.addBuildLogEntry("Created new app " + appName);
             } catch (RequestFailedException appCreationException) {
                 if (appCreationException.getStatusCode() == HttpURLConnection.HTTP_UNAUTHORIZED) {
@@ -99,7 +100,7 @@ public abstract class AbstractHerokuTask implements CommonTaskType
     }
 
     /** Spring setter */
-    public void setEncryptionService(EncryptionService encryptionService)
+    public void setEncryptionService(@ComponentImport EncryptionService encryptionService)
     {
         this.encryptionService = encryptionService;
     }
