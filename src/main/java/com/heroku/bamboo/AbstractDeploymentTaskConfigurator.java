@@ -6,6 +6,7 @@ import com.atlassian.bamboo.security.EncryptionService;
 import com.atlassian.bamboo.task.AbstractTaskConfigurator;
 import com.atlassian.bamboo.task.TaskDefinition;
 import com.atlassian.bamboo.utils.error.ErrorCollection;
+import com.atlassian.plugin.spring.scanner.annotation.imports.ComponentImport;
 import com.google.common.collect.ImmutableList;
 import org.apache.commons.lang.StringUtils;
 import org.jetbrains.annotations.NotNull;
@@ -78,7 +79,7 @@ public abstract class AbstractDeploymentTaskConfigurator extends AbstractTaskCon
     }
 
     /** Spring setter */
-    public void setEncryptionService(EncryptionService encryptionService)
+    public void setEncryptionService(@ComponentImport EncryptionService encryptionService)
     {
         this.encryptionService = encryptionService;
     }

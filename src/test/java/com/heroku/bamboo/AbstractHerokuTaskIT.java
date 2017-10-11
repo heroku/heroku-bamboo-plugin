@@ -1,20 +1,28 @@
 package com.heroku.bamboo;
 
 import com.atlassian.bamboo.build.logger.BuildLogger;
-import com.atlassian.bamboo.task.TaskContext;
+import com.atlassian.bamboo.task.CommonTaskContext;
 import com.atlassian.bamboo.task.TaskResult;
 import com.heroku.api.App;
 import com.heroku.api.HerokuAPI;
 import com.heroku.api.exception.RequestFailedException;
+import org.junit.Rule;
+import org.junit.rules.ExpectedException;
+
+import static org.hamcrest.Matchers.containsString;
 
 /**
  * @author Ryan Brainard
  */
 public class AbstractHerokuTaskIT  extends BaseHerokuTest {
 
+    @Rule
+    public final ExpectedException thrown = ExpectedException.none();
+
+
     final AbstractHerokuTask step = new AbstractHerokuTask() {
         @Override
-        protected TaskResult execute(TaskContext taskContext, String apiKey, HerokuAPI api, App app) {
+        protected TaskResult execute(CommonTaskContext taskContext, String apiKey, HerokuAPI api, App app) {
             throw new UnsupportedOperationException();
         }
     };
@@ -52,12 +60,11 @@ public class AbstractHerokuTaskIT  extends BaseHerokuTest {
 
         final String newAppName = "test" + System.currentTimeMillis();
         assertFalse("Precondition: App should not already exist", api.appExists(newAppName));
-        try {
-            step.getOrCreateApp((BuildLogger) mockLogger.proxy(), badApi, appName).getName();
-            fail();
-        } catch (HerokuBambooHandledException e) {
-            assertStringContains(e.getMessage(), "No access to create Heroku app");
-        }
+
+        thrown.expect(HerokuBambooHandledException.class);
+        thrown.expectMessage(containsString("No access to create Heroku app"));
+
+        step.getOrCreateApp((BuildLogger) mockLogger.proxy(), badApi, appName).getName();
     }
 
     public void testGetOrCreateApp_AlreadyExists_WithoutAccess() throws Exception {

@@ -1,4 +1,4 @@
-<atlassian-plugin key="${project.groupId}.${project.artifactId}" name="${project.name}" plugins-version="2">
+<atlassian-plugin key="${atlassian.plugin.key}" name="${project.name}" plugins-version="2">
     <plugin-info>
         <description>${project.description}</description>
         <version>${project.version}</version>
@@ -14,5 +14,6 @@
         <configuration class="com.heroku.bamboo.WarDeploymentTaskConfigurator"/>
         <resource type="freemarker" name="edit" location="WarDeploymentTask.ftl"/>
         <resource type="download" name="icon" location="heroku_logo.png"/>
+        <help link="heroku.task.help.link" title="heroku.task.help.title" />
     </taskType>
 </atlassian-plugin>

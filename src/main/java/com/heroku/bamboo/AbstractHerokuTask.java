@@ -2,11 +2,12 @@ package com.heroku.bamboo;
 
 import com.atlassian.bamboo.build.logger.BuildLogger;
 import com.atlassian.bamboo.security.EncryptionService;
-import com.atlassian.bamboo.task.TaskContext;
+import com.atlassian.bamboo.task.CommonTaskContext;
+import com.atlassian.bamboo.task.CommonTaskType;
 import com.atlassian.bamboo.task.TaskException;
 import com.atlassian.bamboo.task.TaskResult;
 import com.atlassian.bamboo.task.TaskResultBuilder;
-import com.atlassian.bamboo.task.TaskType;
+import com.atlassian.plugin.spring.scanner.annotation.imports.ComponentImport;
 import com.heroku.api.App;
 import com.heroku.api.Heroku;
 import com.heroku.api.HerokuAPI;
@@ -18,7 +19,8 @@ import java.net.HttpURLConnection;
 /**
  * @author Ryan Brainard
  */
-public abstract class AbstractHerokuTask implements TaskType {
+public abstract class AbstractHerokuTask implements CommonTaskType
+{
 
     protected final StaticSandbox staticSandbox;
     protected EncryptionService encryptionService;
@@ -26,13 +28,13 @@ public abstract class AbstractHerokuTask implements TaskType {
     protected AbstractHerokuTask() {
         this(new StaticSandbox() {
             @Override
-            public TaskResult success(TaskContext taskContext) {
-                return TaskResultBuilder.create(taskContext).success().build();
+            public TaskResult success(CommonTaskContext taskContext) {
+                return TaskResultBuilder.newBuilder(taskContext).success().build();
             }
 
             @Override
-            public TaskResult failed(TaskContext taskContext) {
-                return TaskResultBuilder.create(taskContext).failed().build();
+            public TaskResult failed(CommonTaskContext taskContext) {
+                return TaskResultBuilder.newBuilder(taskContext).failed().build();
             }
         });
     }
@@ -43,7 +45,7 @@ public abstract class AbstractHerokuTask implements TaskType {
 
     @NotNull
     @Override
-    public TaskResult execute(@NotNull final TaskContext taskContext) throws TaskException {
+    public TaskResult execute(@NotNull final CommonTaskContext taskContext) throws TaskException {
         final BuildLogger buildLogger = taskContext.getBuildLogger();
         final String apiKey = encryptionService.decrypt(taskContext.getConfigurationMap().get(AbstractDeploymentTaskConfigurator.API_KEY));
         final HerokuAPI api = new HerokuAPI(apiKey);
@@ -57,7 +59,7 @@ public abstract class AbstractHerokuTask implements TaskType {
         }
     }
 
-    protected abstract TaskResult execute(TaskContext taskContext, String apiKey, HerokuAPI api, App app);
+    protected abstract TaskResult execute(CommonTaskContext taskContext, String apiKey, HerokuAPI api, App app);
 
     protected App getOrCreateApp(BuildLogger buildLogger, HerokuAPI api, String appName) {
         App app;
@@ -70,7 +72,7 @@ public abstract class AbstractHerokuTask implements TaskType {
             }
 
             try {
-                app = api.createApp(new App().named(appName).on(Heroku.Stack.Cedar));
+                app = api.createApp(new App().named(appName).on(Heroku.Stack.Cedar14));
                 buildLogger.addBuildLogEntry("Created new app " + appName);
             } catch (RequestFailedException appCreationException) {
                 if (appCreationException.getStatusCode() == HttpURLConnection.HTTP_UNAUTHORIZED) {
@@ -93,12 +95,12 @@ public abstract class AbstractHerokuTask implements TaskType {
      * A sandbox for static methods that don't play well with jMock
      */
     protected static interface StaticSandbox {
-        TaskResult success(TaskContext taskContext);
-        TaskResult failed(TaskContext taskContext);
+        TaskResult success(CommonTaskContext taskContext);
+        TaskResult failed(CommonTaskContext taskContext);
     }
 
     /** Spring setter */
-    public void setEncryptionService(EncryptionService encryptionService)
+    public void setEncryptionService(@ComponentImport EncryptionService encryptionService)
     {
         this.encryptionService = encryptionService;
     }
