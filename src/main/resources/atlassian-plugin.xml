@@ -14,5 +14,6 @@
         <configuration class="com.heroku.bamboo.WarDeploymentTaskConfigurator"/>
         <resource type="freemarker" name="edit" location="WarDeploymentTask.ftl"/>
         <resource type="download" name="icon" location="heroku_logo.png"/>
+        <help link="heroku.task.help.link" title="heroku.task.help.title" />
     </taskType>
 </atlassian-plugin>

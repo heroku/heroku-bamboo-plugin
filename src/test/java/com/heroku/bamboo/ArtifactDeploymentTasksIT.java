@@ -1,5 +1,6 @@
 package com.heroku.bamboo;
 
+import com.atlassian.bamboo.task.CommonTaskType;
 import com.atlassian.bamboo.task.TaskContext;
 import com.atlassian.bamboo.task.TaskResult;
 import com.atlassian.bamboo.task.TaskState;
@@ -10,7 +11,7 @@ import java.io.File;
 public class ArtifactDeploymentTasksIT extends BaseHerokuTest {
 
     protected TaskResult runTask(Class<? extends AbstractDeploymentTask> taskClass) throws Exception {
-        TaskType task = taskClass.getConstructor(AbstractDeploymentTask.StaticSandbox.class).newInstance((AbstractDeploymentTask.StaticSandbox) mockStatics.proxy());
+        CommonTaskType task = taskClass.getConstructor(AbstractDeploymentTask.StaticSandbox.class).newInstance((AbstractDeploymentTask.StaticSandbox) mockStatics.proxy());
         return task.execute((TaskContext) mockContext.proxy());
     }
     

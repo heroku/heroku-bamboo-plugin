@@ -1,2 +1,10 @@
 target
 activemq-data
+.idea
+*.iml
+*.ipr
+*.iws
+.DS_Store
+.project
+.settings
+atlassian-ide-plugin.xml

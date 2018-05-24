@@ -36,7 +36,7 @@ public abstract class AbstractDeploymentTask<P extends DeploymentPipeline> exten
     }
 
     @Override
-    protected TaskResult execute(TaskContext taskContext, String apiKey, HerokuAPI api, App app) {
+    protected TaskResult execute(CommonTaskContext taskContext, String apiKey, HerokuAPI api, App app) {
         final BuildLogger buildLogger = taskContext.getBuildLogger();
         final String pipelineName = pipeline.getPipelineName();
         final DirectToHerokuClient client = new DirectToHerokuClient.Builder()
